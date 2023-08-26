@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Weather";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Weather</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>temperatureC</th>
+        <th>temperatureF</th>
+        <th>Summary</th>
+    </tr>
+    </thead>
+    <tbody id="weatherBody">
+
+    </tbody>
+    
+
+</table>
+
+<script>
+    $( document ).ready(function() {
+    console.log( "ready!" );
+
+        $.get("https://localhost:7038/api/WeatherForecast", function (data, status) {
+            if (status == "success")
+            {
+                if(data != null && data.length >0)
+                {
+                    $.each(data, function(index,element) {
+                        $("#weatherBody").append("<tr><td>"+element.date+"</td><td>"+element.temperatureC+"</td><td>"+element.temperatureF+"</td><td>"+element.summary+"</td></tr>");
+                        console.log(element);
+                    });
+                
+                }
+            }
+            //alert("Data: " + data + "\nStatus: " + status);
+        });
+});
+
+</script>
